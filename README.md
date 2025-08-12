@@ -19,6 +19,7 @@ Seeds run automatically when backend container starts:
 
 
 # Debug steps:
+```
 docker-compose exec backend node seedAdmin.js
 ✅ Connected to MongoDB in Docker
 ✅ Admin created: admin@example.com / admin123
@@ -54,7 +55,9 @@ db.users.updateOne(
   { email: "admin@example.com" },
   { $set: { password: "$2a$10$hG0t3cu23ek3hfZwF8gy1eLO9KP6FYES7XSdSSmqWf7N4BBdo6pOW" } }
 )
+```
 
+## Debug MongoDB
 1️⃣ Open MongoDB shell inside your Docker container
 
 Find your Mongo container:
@@ -68,7 +71,7 @@ abc12345       mongo:6.0     "docker-entrypoint.s…"   ...   shopping_mongo
 
 Then connect:
 
-docker exec -it shopping_mongo mongosh
+```docker exec -it shopping_mongo mongosh```
 
 2️⃣ Switch to your app’s database
 
@@ -81,6 +84,7 @@ You can confirm with:
 show collections
 
 You should see users.
+
 3️⃣ Reset the password for the admin
 
 Since the backend hashes passwords, we can either:
@@ -93,7 +97,7 @@ Here’s the safe way using bcrypt from inside the backend container.
 
 First, exit MongoDB shell (exit) and go into the backend container:
 
-docker exec -it shopping_backend sh
+```docker exec -it shopping_backend sh```
 
 Then open Node REPL:
 
@@ -105,22 +109,25 @@ const bcrypt = require('bcryptjs');
 bcrypt.hash('admin123', 10).then(console.log);
 
 Copy the resulting hash (a long string starting with $2a$10$...).
+
 4️⃣ Update password in MongoDB
 
 Reconnect to MongoDB shell:
 
-docker exec -it shopping_mongo mongosh
+```docker exec -it shopping_mongo mongosh```
 
 Switch DB:
 
-use shopping
+```use shopping```
 
 Update:
 
+```
 db.users.updateOne(
   { email: "admin@example.com" },
   { $set: { password: "<PASTE_HASH_HERE>" } }
 )
+```
 
 5️⃣ Test login
 
