@@ -1,17 +1,39 @@
-# Ignore maven target folder
+#Ignore
+HELP.md
+
+### MVN ###
 target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-# Ignore all .log files
-*.log
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings 
+.springBeans
+.sts4-cache
 
-# Ignore the 'node_modules' directory
-node_modules/
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 
-# Ignore the 'build' directory and its contents
+### NetBeans ###
+/nbproject/private/
+/nbbuild/ 
+/dist/
+/nbdist/
+/.nb-gradle/
 build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# Ignore a specific file
-secrets.txt
-
-# Ignore IDE-specific files (e.g., VS Code)
+### VS Code ###
 .vscode/
+
+### 'node_modules' ###
+node_modules/
